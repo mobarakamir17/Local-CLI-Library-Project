@@ -1,0 +1,1 @@
+# Define the Author model class here, along with its attributes and relationships.
