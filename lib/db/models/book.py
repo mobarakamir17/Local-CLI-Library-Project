@@ -1,0 +1,1 @@
+# Define the Book model class here, including its attributes, relationships, and methods for CRUD operations.

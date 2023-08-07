@@ -1,0 +1,1 @@
+# Create a module that handles the database connection and session management using SQLAlchemy's Session class. This can help you avoid repeating code for connecting to the database in multiple places.
