@@ -1,1 +1,15 @@
 # Create a module that handles the database connection and session management using SQLAlchemy's Session class. This can help you avoid repeating code for connecting to the database in multiple places.
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from db.db_connector import Base 
+
+DATABASE_URL = "sqlite:///lib/db/books.db"
+engine = create_engine(DATABASE_URL)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+def init_db():
+    Base.metadata.create_all(bind=engine)
