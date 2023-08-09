@@ -1,1 +1,0 @@
-#  Define the Borrower model class here, along with its attributes and relationships.
