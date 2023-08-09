@@ -3,8 +3,9 @@ import time
 import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from lib.db.db_connector import init_db, SessionLocal, Base 
-from lib.db.models.book import Book, Author, Genre
+from db.db_connector import init_db, SessionLocal, Base
+from db.models.book import Book, Author, Genre
+
 
 # Color definitions
 white = "\033[1;37;49m"
@@ -22,6 +23,15 @@ session = Session()
 
 def main():
     init_db()
+
+    # Display animations from book.txt and reading.txt
+    display_animations(["lib/book.txt", "lib/reading.txt"], delay=0.4)
+
+    # Display welcome message with typewriter effect
+    welcome_message = (
+        f"\n\n\t\t\t\t\t\t\t\t {green}Welcome to the library!\n\n"
+    )
+
     
     # Create a new session
     session = SessionLocal()
@@ -175,17 +185,6 @@ def display_animations(filenames, delay=1, repeat=4):
             print(''.join(frame))
             time.sleep(delay)
             os.system('clear')
-
-def main():
-    init_db()
-
-    # Display animations from book.txt and reading.txt
-    display_animations(["lib/book.txt", "lib/reading.txt"], delay=0.4)
-
-    # Display welcome message with typewriter effect
-    welcome_message = (
-        f"\n\n\t\t\t\t\t\t\t\t {green}Welcome to the library!\n\n"
-    )
-
+    
 if __name__ == "__main__":
     main()
