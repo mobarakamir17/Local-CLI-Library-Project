@@ -3,6 +3,7 @@ import os, time, sys
 book_pic = ["book.txt"]
 
 def load_animation():
+    print ("In a silly goofy mood")
 #     load_str = "starting your console application..."
 #     ls_len = len(load_str)
 
