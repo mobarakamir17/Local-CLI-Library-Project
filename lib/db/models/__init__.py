@@ -1,1 +1,4 @@
-# This file can serve as an initializer for the models package, and you can use it to import all your model classes (Book, Author, Borrower, etc.).
+from .book import Book
+from .author import Author
+from .genre import Genre
+from .library import Library
