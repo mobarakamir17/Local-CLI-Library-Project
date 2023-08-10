@@ -4,7 +4,10 @@ import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from db.db_connector import init_db, SessionLocal, Base
-from db.models.book import Book, Author, Genre
+from book import Book
+from author import Author
+from genre import Genre
+# from sqlalchemy.ext.declarative import declarative_base
 
 
 # Color definitions
