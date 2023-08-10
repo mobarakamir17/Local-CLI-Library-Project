@@ -1,6 +1,18 @@
 import click
-from lib.db.models import SessionLocal, Book, Author, Genre
+import os
+from db.models import SessionLocal, Book, Author, Genre
+from main import main as run_main, display_animations
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def main():
+    
+    run_main()
+
+if __name__ == '__main__':
+    main()
+    
 @click.group()
 def cli():
     pass
@@ -51,6 +63,21 @@ def filter_by_genre(genre):
             click.echo(f"{book.title} by {book.author.name} ({book.genre.name})")
     else:
         click.echo(f"No books found in genre {genre}")
+    session.close()
+
+@cli.command()
+def add_book():
+    """Add a new book to the library."""
+    session = SessionLocal()
+    new_book = {
+        "title": click.prompt("Enter the title: "),
+        "author": click.prompt("Enter the author: "),
+        "genre": click.prompt("Enter the genre: "),
+        "published date": click.prompt("Enter the published date"),
+        "description": click.prompt("Enter a short description here")
+    }
+    # Create new Book, Author, Genre objects and add them to the session
+    # Commit changes
     session.close()
 
 if __name__ == '__main__':
