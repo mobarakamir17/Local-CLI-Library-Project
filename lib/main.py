@@ -3,10 +3,10 @@ import time
 import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db.db_connector import init_db, SessionLocal, Base
-from book import Book
-from author import Author
-from genre import Genre
+from db.models import SessionLocal, Base, Book, Author, Genre
+# from cli import 
+import click
+
 # from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -19,16 +19,20 @@ magenta = "\033[1;35;49m"
 cyan = "\033[1;36;49m"
 
 # Database setup
-engine = create_engine('sqlite:///lib/db/books.db')
+engine = create_engine('sqlite:///db/books.db')
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+book_pic = ["book.txt","book2.txt","book3.txt","book.txt"]
+reading = ["reading.txt","reading2.txt"]
+
 def main():
-    init_db()
+    # init_db()
 
     # Display animations from book.txt and reading.txt
-    display_animations(["lib/book.txt", "lib/reading.txt"], delay=0.4)
+    display_animations(book_pic, delay=0.4)
+    display_animations(reading, delay = 1)
 
     # Display welcome message with typewriter effect
     welcome_message = (
@@ -189,5 +193,11 @@ def display_animations(filenames, delay=1, repeat=4):
             time.sleep(delay)
             os.system('clear')
     
+
+def menu():
+    print("Please select an option:")  
+    selection = input(f"1. List Books 2.Filter by genre 3. Search by Author 4. Search by Title")
+    if selection == "1" or selection.lower() == "list books":
+        fetch_  
 if __name__ == "__main__":
     main()

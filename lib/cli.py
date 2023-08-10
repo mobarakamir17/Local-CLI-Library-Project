@@ -1,5 +1,5 @@
 import click
-from lib.db.models import SessionLocal, Book, Author, Genre
+from db.models import SessionLocal, Book, Author, Genre
 
 @click.group()
 def cli():

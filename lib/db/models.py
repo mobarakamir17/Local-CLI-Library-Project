@@ -19,7 +19,7 @@ class Book(Base):
     title = Column(String, nullable=False)
     author_id = Column(Integer, ForeignKey('authors.id'))
     genre_id = Column(Integer, ForeignKey('genres.id'))
-    published_date = Column(Date)
+    published_date = Column(Integer)
     description = Column(String)
 
     author = relationship("Author", back_populates="books")
@@ -33,7 +33,7 @@ class Genre(Base):
     
     books = relationship("Book", back_populates="genre")
 
-engine = create_engine('sqllite:///lib/db/books.db')
+engine = create_engine('sqlite:///db/books.db')
 Base.metadata.create_all(engine)
 
 SessionLocal = sessionmaker(bind=engine)
