@@ -1,4 +1,3 @@
-# Create a module that handles the database connection and session management using SQLAlchemy's Session class. This can help you avoid repeating code for connecting to the database in multiple places.
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
