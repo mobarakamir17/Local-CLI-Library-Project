@@ -25,6 +25,10 @@ book_pic = ["book.txt","book2.txt","book3.txt","book.txt"]
 reading = ["reading.txt","reading2.txt"]
 
 def main():
+ 
+    welcome_message = (
+        f"\n\n\t\t\t\t\t\t\t\t {green}Welcome to the library!\n\n"
+    )
 
     
     # Create a new session
