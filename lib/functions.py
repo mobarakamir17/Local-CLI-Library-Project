@@ -17,7 +17,7 @@ def menu():
         if filter_selection == "1":
            search_by_title()
         elif filter_selection == "2":
-            search_by_author()
+            search_by_author_menu()
         elif filter_selection == "3":
             filter_by_genre()
     elif selection == "4":
@@ -43,15 +43,19 @@ def list_books():
     menu()
 
 
-def search_by_author(author_name):
+def search_by_author_menu():
     """Search books by author."""
+    author_name = input("Enter the author's name: ")
     session = SessionLocal()
     books = session.query(Book).join(Author).filter(Author.name.ilike(f"%{author_name}%")).all()
     if books:
         for book in books:
-            print(f"{book.title} by {book.author.name} ({book.genre.name})")
+            author_names = ", ".join([author.name for author in book.author])
+            genre_names = ", ".join([genre.name for genre in book.genre])
+            print(f"{book.title} by {author_names} ({genre_names})")
     else:
         print(f"No books found by author {author_name}")
+
     session.close()
     menu()
 
