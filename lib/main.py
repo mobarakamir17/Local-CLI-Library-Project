@@ -28,8 +28,8 @@ def main():
     # init_db()
 
     # Display animations from book.txt and reading.txt
-    display_animations(book_pic, delay=0.4)
-    display_animations(reading, delay = 1)
+    # display_animations(book_pic, delay=0.4)
+    # display_animations(reading, delay = 1)
     # Display welcome message with typewriter effect
     welcome_message = (
         f"\n\n\t\t\t\t\t\t\t\t {green}Welcome to the library!\n\n"
@@ -41,18 +41,29 @@ def main():
 
     try:
         # Loop through book_data and create books
+        book_list = []
         for book_info in book_data:
-            author = Author(name=book_info["author"])
-            genre = Genre(name=book_info["genre"])
             book = Book(
                 title=book_info["title"],
-                author=author,
-                genre=genre,
+                # author=author,
+                # genre=genre,
                 published_date=book_info["published_date"],
                 description=book_info["description"]
             )
-            session.add_all([author, genre, book])
+            session.add(book)
+            book_list.append(book)
+        session.commit()
 
+        for book_info in book_data:
+            book = next((book for book in book_list if book.title == book_info["title"]), None)
+            author = Author(
+                name=book_info["author"],
+                book_id=book.id)
+            session.add(author) 
+            genre = Genre(
+                name=book_info["genre"],
+                book_id=book.id)
+            session.add(genre)
         # Commit changes to the database
         session.commit()
 

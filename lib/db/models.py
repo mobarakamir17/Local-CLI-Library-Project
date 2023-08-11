@@ -9,7 +9,8 @@ class Author(Base):
     
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    
+
+    book_id = Column(Integer, ForeignKey('books.id'))
     books = relationship("Book", back_populates="author")
 
 class Book(Base):
@@ -17,8 +18,8 @@ class Book(Base):
     
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    author_id = Column(Integer, ForeignKey('authors.id'))
-    genre_id = Column(Integer, ForeignKey('genres.id'))
+    # author_id = Column(Integer, ForeignKey('authors.id'))
+    # genre_id = Column(Integer, ForeignKey('genres.id'))
     published_date = Column(Integer)
     description = Column(String)
 
@@ -30,7 +31,8 @@ class Genre(Base):
     
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    
+
+    book_id = Column(Integer, ForeignKey('books.id'))
     books = relationship("Book", back_populates="genre")
 
 engine = create_engine('sqlite:///db/books.db')
