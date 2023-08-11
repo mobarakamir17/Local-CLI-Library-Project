@@ -29,6 +29,6 @@
 
 
 ## Credits
-The CLI Library Project is developed by Amir Mobarak and Kristina Stout. It's based on the knowledge gained from a coding bootcamp(Flatiron) and utilizes Python, SQLAlchemy, and other technologies.
+The CLI Library Project is developed by Amir Mobarak, Kristina Stout, Dom Hester, and Grant Bruemmer. It's based on the knowledge gained from a coding bootcamp(Flatiron) and utilizes Python, SQLAlchemy, and other technologies.
 
 Enjoy exploring and interacting with the virtual library through this CLI application!

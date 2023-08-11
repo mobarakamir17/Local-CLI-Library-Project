@@ -1,7 +1,5 @@
-import click
-import os
 from db.models import SessionLocal, Book, Author, Genre
-from main import main as run_main, display_animations, reading
+from main import main as display_animations, reading
 
 def menu():
 
@@ -13,18 +11,15 @@ def menu():
         add_book()
     elif selection == "3":
         print("Select your filter type:")
-        filter_selection = input("1. Book Title 2. Author 3. Genre\n")
+        filter_selection = input("1. Author 2. Genre\n")
         if filter_selection == "1":
-           search_by_title()
+           search_by_author_menu()
         elif filter_selection == "2":
-            search_by_author()
-        elif filter_selection == "3":
             filter_by_genre()
     elif selection == "4":
-        display_animations(reading, delay = 1)
+        display_animations(reading, delay=1)
         print("Goodbye!")
         exit()
-
 
 def list_books():
     """List all books in the library."""
@@ -32,7 +27,6 @@ def list_books():
     books = session.query(Book).all()
     genres = session.query(Genre).all()
     authors = session.query(Author).all()
-
 
     for book in books:
         book_author = next((author for author in authors if author.book_id == book.id), None)
@@ -42,44 +36,38 @@ def list_books():
     session.close()
     menu()
 
-
-def search_by_author(author_name):
+def search_by_author_menu():
     """Search books by author."""
+    author_name = input("Enter the author's name: ")
     session = SessionLocal()
     books = session.query(Book).join(Author).filter(Author.name.ilike(f"%{author_name}%")).all()
     if books:
         for book in books:
-            print(f"{book.title} by {book.author.name} ({book.genre.name})")
+            author_names = ", ".join([author.name for author in book.author])
+            genre_names = ", ".join([genre.name for genre in book.genre])
+            print(f"{book.title} by {author_names} ({genre_names})")
     else:
         print(f"No books found by author {author_name}")
+
     session.close()
     menu()
 
-def search_by_title(book_title):
-    """Search books by title."""
-    session = SessionLocal()
-    books = session.query(Book).filter(Book.title.ilike(f"%{book_title}%")).all()
-    if books:
-        for book in books:
-            print(f"{book.title} by {book.author.name} ({book.genre.name})")
-    else:
-        print(f"No books found with title {book_title}")
-    session.close()
-    menu()
-
-
-def filter_by_genre(genre):
+def filter_by_genre():
     """Filter books by genre."""
     session = SessionLocal()
-    books = session.query(Book).join(Genre).filter(Genre.name.ilike(f"%{genre}%")).all()
+    genre_input = input("Enter the genre to filter by: ")
+    books = session.query(Book).join(Genre).filter(Genre.name.ilike(f"%{genre_input}%")).all()
+
     if books:
         for book in books:
-            print(f"{book.title} by {book.author.name} ({book.genre.name})")
+            author_name = book.author[0].name if book.author else "Unknown"
+            genre_names = ", ".join([genre.name for genre in book.genre])
+            print(f"{book.title} by {author_name} ({genre_names})")
     else:
-        print(f"No books found in genre {genre}")
+        print(f"No books found in library with the genre: {genre_input}")
+
     session.close()
     menu()
-
 
 def add_book():
     """Add a new book to the library."""
@@ -95,10 +83,9 @@ def add_book():
     add_book = Book(title=new_book["title"], published_date=new_book["published_date"], description=new_book["description"])
     session.add(add_book)
     session.commit()
-    add_genre = Genre(name=new_book["genre"],book_id=add_book.id)
-    add_author = Author(name=new_book["author"],book_id=add_book.id)
-    
-    
+    add_genre = Genre(name=new_book["genre"], book_id=add_book.id)
+    add_author = Author(name=new_book["author"], book_id=add_book.id)
+
     session.add(add_genre)
     session.add(add_author)
 
