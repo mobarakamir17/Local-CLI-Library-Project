@@ -1,7 +1,7 @@
 import click
 import os
 from db.models import SessionLocal, Book, Author, Genre
-from main import main as run_main, display_animations, book_pic, reading
+from main import main as run_main, display_animations, reading
 
 def menu():
 
@@ -21,6 +21,8 @@ def menu():
         elif filter_selection == "3":
             filter_by_genre()
     elif selection == "4":
+        display_animations(reading, delay = 1)
+        print("Goodbye!")
         exit()
 
 
