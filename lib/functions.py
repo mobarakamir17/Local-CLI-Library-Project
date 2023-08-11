@@ -1,5 +1,7 @@
+import click
+import os
 from db.models import SessionLocal, Book, Author, Genre
-from main import main as display_animations, reading
+from main import main as run_main, display_animations, reading
 
 def menu():
 
