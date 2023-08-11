@@ -25,15 +25,6 @@ book_pic = ["book.txt","book2.txt","book3.txt","book.txt"]
 reading = ["reading.txt","reading2.txt"]
 
 def main():
-    # init_db()
-
-    # Display animations from book.txt and reading.txt
-    # display_animations(book_pic, delay=0.4)
-    # display_animations(reading, delay = 1)
-    # Display welcome message with typewriter effect
-    welcome_message = (
-        f"\n\n\t\t\t\t\t\t\t\t {green}Welcome to the library!\n\n"
-    )
 
     
     # Create a new session

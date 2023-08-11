@@ -68,17 +68,23 @@ def search_by_title(book_title):
     menu()
 
 
-def filter_by_genre(genre):
+def filter_by_genre():
     """Filter books by genre."""
     session = SessionLocal()
-    books = session.query(Book).join(Genre).filter(Genre.name.ilike(f"%{genre}%")).all()
+    genre_input = input("Enter the genre to filter by: ")
+    books = session.query(Book).join(Genre).filter(Genre.name.ilike(f"%{genre_input}%")).all()
+
     if books:
         for book in books:
-            print(f"{book.title} by {book.author.name} ({book.genre.name})")
+            author_name = book.author[0].name if book.author else "Unknown"
+            genre_names = ", ".join([genre.name for genre in book.genre])
+            print(f"{book.title} by {author_name} ({genre_names})")
     else:
-        print(f"No books found in genre {genre}")
+        print(f"No books found in library with the genre: {genre_input}")
+    
     session.close()
     menu()
+
 
 
 def add_book():
